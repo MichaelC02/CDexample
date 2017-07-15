@@ -8,6 +8,6 @@
     </configurations>
 
 	<dependencies>
-		<dependency org="junit" name="junit" rev="4.12" conf="test->default" />
+		<dependency org="junit" name="junit" rev="4.12" conf="test" />
 	</dependencies>
 </ivy-module>
