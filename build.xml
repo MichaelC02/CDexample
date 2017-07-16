@@ -26,12 +26,6 @@
 		<path refid="test.path" />
 	</path>
 	
-	<path id="classpath.test"> 
- <path refid="compile.path" />
-		<path refid="test.path" />
-  <path location="${web.classes.dir}" /> 
-</path>
-	
 	<!-- Compile Java source from ${src.dir} and output it to ${web.classes.dir} -->
 	<target name="compile" depends="init, resolve" description="compile source code">
 		<mkdir dir="${web.classes.dir}" />
@@ -49,17 +43,16 @@
 
 	  <junit printsummary="no" haltonfailure="yes">
 
-		<classpath refid="classpath.test" />
-		
+		<classpath refid="test.path" />
+		<classpath location="${web.classes.dir}" />
+
 		<formatter type="xml" />
-		<batchtest fork="no" >
+		<batchtest fork="no" todir="${report.dir}">
 			<fileset dir="${test.dir}">
 				<include name="**/*Test*.java" />
 			</fileset>
 		</batchtest>
-	
-		<formatter type="plain" usefile="false"/>
-		
+
 	  </junit>
 	</target>
 
