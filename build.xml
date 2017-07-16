@@ -28,17 +28,26 @@
 			target="${jdk.version}" debug="true"
             includeantruntime="false" classpathref="compile.path">
 			<src path="${src.dir}" />
-			<test path="${test.dir}" />	
+	</javac>
+	</target>
+	
+	<target name="test-compile" depends="compile" description="compile source code">
+		<mkdir dir="${test.classes.dir}" />
+		<javac destdir="${test.classes.dir}" source="${jdk.version}"
+			target="${jdk.version}" debug="true"
+            includeantruntime="false" classpathref="test.path">
+			<src path="${test.dir}" />
 	</javac>
 	</target>
 
+
 	<!-- Run jUnit -->
-	<target name="junit" depends="compile">
+	<target name="junit" depends="test-compile">
 
 	  <junit printsummary="yes" haltonfailure="no">
 
 		<classpath refid="test.path" />
-		<classpath location="${web.classes.dir}" />
+		<classpath location="${test.classes.dir}" />
 
 		<formatter type="xml" />
 		<batchtest fork="yes" todir="${report.dir}">
@@ -63,6 +72,6 @@
 		<delete dir="${report.dir}" />
 	</target>
 
-	<target name="main" depends="compile" />
+	<target name="main" depends="junit" />
 
 </project>
