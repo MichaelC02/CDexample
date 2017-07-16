@@ -46,12 +46,17 @@
 		<classpath refid="combined" />
 		<classpath location="${web.classes.dir}" />
 
-		<formatter type="xml" />
+		
+		
+		<test name="marolt.it.service.ServiceTest"/>
+		<!--
 		<batchtest todir="${report.dir}">
 			<fileset dir="${test.dir}">
 				<include name="**/*Test*.java" />
 			</fileset>
 		</batchtest>
+		
+		-->
 
 	  </junit>
 	</target>
