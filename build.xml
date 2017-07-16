@@ -49,7 +49,7 @@
 		<mkdir dir="${test.classes.dir}" />
 		<javac destdir="${test.classes.dir}" source="${jdk.version}"
 			target="${jdk.version}" debug="true"
-            includeantruntime="false" refid="combinedclasspath">
+            includeantruntime="false" classpathref="combinedclasspath">
 			<src path="${src.dir}" />
 	</javac>
 	</target>
