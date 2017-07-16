@@ -21,31 +21,45 @@
 		<ivy:cachepath pathid="test.path" conf="test" />
 	</target>
 
+	<path id="combined">
+		<path refid="compile.path" />
+		<path refid="test.path" />
+	</path>
+	
+	<path id="classpath.test"> 
+ <path refid="compile.path" />
+		<path refid="test.path" />
+  <path location="${web.classes.dir}" /> 
+</path>
+	
 	<!-- Compile Java source from ${src.dir} and output it to ${web.classes.dir} -->
 	<target name="compile" depends="init, resolve" description="compile source code">
 		<mkdir dir="${web.classes.dir}" />
 		<javac destdir="${web.classes.dir}" source="${jdk.version}"
 			target="${jdk.version}" debug="true"
-            includeantruntime="false" classpathref="compile.path">
+            includeantruntime="false" classpathref="combined">
 			<src path="${src.dir}" />
-		</javac>
+	</javac>
 	</target>
+	
+
 
 	<!-- Run jUnit -->
 	<target name="junit" depends="compile">
 
-	  <junit printsummary="yes" haltonfailure="no">
+	  <junit printsummary="no" haltonfailure="yes">
 
-		<classpath refid="test.path" />
-		<classpath location="${web.classes.dir}" />
-
+		<classpath refid="classpath.test" />
+		
 		<formatter type="xml" />
-		<batchtest fork="yes" todir="${report.dir}">
+		<batchtest fork="no" >
 			<fileset dir="${test.dir}">
 				<include name="**/*Test*.java" />
 			</fileset>
 		</batchtest>
-
+	
+		<formatter type="plain" usefile="false"/>
+		
 	  </junit>
 	</target>
 
