@@ -11,7 +11,6 @@
 	<property name="report.dir" location="report" />
 	<property name="web.dir" value="war" />
 	<property name="web.classes.dir" location="${web.dir}/WEB-INF/classes" />
-	<property name="test.classes.dir" location="${web.dir}/test/java" />
 
 	<!-- ivy start -->
 	<target name="resolve" description="retrieve dependencies with ivy">
@@ -27,12 +26,6 @@
 		<path refid="test.path" />
 	</path>
 	
-	<path id="combinedclasspath">
-		<path refid="compile.path" />
-		<path refid="test.path" />
-		<pathelement location="${web.classes.dir}" />
-	</path>
-	
 	<!-- Compile Java source from ${src.dir} and output it to ${web.classes.dir} -->
 	<target name="compile" depends="init, resolve" description="compile source code">
 		<mkdir dir="${web.classes.dir}" />
@@ -43,34 +36,28 @@
 	</javac>
 	</target>
 	
-	
-	<!-- Compile Java source from ${src.dir} and output it to ${web.classes.dir} -->
-	<target name="test-compile" depends="compile" description="compile test source code">
-		<mkdir dir="${test.classes.dir}" />
-		<javac destdir="${test.classes.dir}" source="${jdk.version}"
-			target="${jdk.version}" debug="true"
-            includeantruntime="false" classpathref="combinedclasspath">
-			<src path="${src.dir}" />
-	</javac>
-	</target>
-	
-	
 
 
 	<!-- Run jUnit -->
-	<target name="junit" depends="test-compile">
+	<target name="junit" depends="compile">
 
 	  <junit haltonfailure="yes">
 
 		<classpath refid="combined" />
-		<classpath location="${test.classes.dir}" />		
+		<classpath location="${web.classes.dir}" />
+
 		
+		
+		<test name="marolt.it.service.ServiceTest"/>
+		<!--
 		<batchtest todir="${report.dir}">
 			<fileset dir="${test.dir}">
 				<include name="**/*Test*.java" />
 			</fileset>
 		</batchtest>
-	
+		
+		-->
+
 	  </junit>
 	</target>
 
@@ -78,13 +65,11 @@
 	<target name="init">
 		<mkdir dir="${src.dir}" />
 		<mkdir dir="${web.classes.dir}" />
-		<mkdir dir="${test.classes.dir}" />
 		<mkdir dir="${report.dir}" />
 	</target>
 
 	<!-- Delete folders -->
 	<target name="clean" description="clean up">
-		<delete dir="${test.classes.dir}" />
 		<delete dir="${web.classes.dir}" />
 		<delete dir="${report.dir}" />
 	</target>
