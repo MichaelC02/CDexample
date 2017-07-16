@@ -41,13 +41,13 @@
 	<!-- Run jUnit -->
 	<target name="junit" depends="compile">
 
-	  <junit printsummary="no" haltonfailure="yes">
+	  <junit printsummary="off" haltonfailure="yes">
 
 		<classpath refid="test.path" />
 		<classpath location="${web.classes.dir}" />
 
 		<formatter type="xml" />
-		<batchtest fork="no" todir="${report.dir}">
+		<batchtest fork="off" todir="${report.dir}">
 			<fileset dir="${test.dir}">
 				<include name="**/*Test*.java" />
 			</fileset>
