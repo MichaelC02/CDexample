@@ -62,6 +62,6 @@
 		<delete dir="${report.dir}" />
 	</target>
 
-	<target name="main" depends="junit" />
+	<target name="main" depends="compile" />
 
 </project>
