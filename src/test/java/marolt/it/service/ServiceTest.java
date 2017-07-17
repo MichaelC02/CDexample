@@ -20,5 +20,5 @@ public class ServiceTest {
 	public void percent2DoubleTest(){
 		Assert.assertEquals(0.1, service.percent2Double(10.0));
 	}
-
 }
+
