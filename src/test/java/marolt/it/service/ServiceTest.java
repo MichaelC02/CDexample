@@ -7,11 +7,18 @@ import marolt.it.services.CDService;
 
 public class ServiceTest {
 
+	CDService service = new CDService();
+	
+	@SuppressWarnings("deprecation")
 	@Test
-	public void calculateTest(){
-		CDService service = new CDService();
-		
-		Assert.assertEquals(4, service.calculate4());
+	public void multiplyTest(){
+		Assert.assertEquals(4, service.multiply(2,2));
+	}
+	
+	@SuppressWarnings("deprecation")
+	@Test
+	public void percent2DoubleTest(){
+		Assert.assertEquals(0.1, service.percent2Double(10.0));
 	}
 
 }
