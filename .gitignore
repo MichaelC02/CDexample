@@ -1,0 +1,7 @@
+.classpath
+.project
+lib/
+report/
+target/
+war/WEB-INF/classes/hamcrest-core-1.3.jar
+war/
